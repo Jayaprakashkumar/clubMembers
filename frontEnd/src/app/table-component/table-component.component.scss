@@ -1,0 +1,57 @@
+h3{
+    font-size: 5vmin;
+    padding: 0.5em 0;
+    text-align: center;
+    margin-bottom: 0;
+}
+.table-wrapper {
+    width: 80%;
+    margin: 0 auto;
+    min-height: 71vh;
+    display: flex;
+    align-items: center;
+
+    a{
+        color: #dc3545;
+        text-decoration: none;
+    }
+
+    .table-section {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        box-shadow: 2px 2px 11px -2px #cdcdcd;
+        padding: 15px 10px;
+    }
+    .data-table {
+        width: 100%;
+    }
+
+    button {
+        background-color: #fff;
+        color: #17a2b8;
+        border: 1px solid #17a2b8;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 8px;
+        margin-top: 7vmin;
+
+        &:hover {
+            background-color: #17a2b8;
+            color: #fff;
+        }
+    }
+}
+
+@media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
+    .table-wrapper {
+        width: 95%;
+    }
+    .table-section{
+        padding: 0!important;
+    }
+
+
+}

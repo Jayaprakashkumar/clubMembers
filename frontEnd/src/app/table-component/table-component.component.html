@@ -1,0 +1,79 @@
+<h3>Club Details</h3>
+
+<div class="table-wrapper">
+    <div class="table-section">
+        <nz-table #nestedTable [nzData]="tableParentData" [nzPageSize]="10" class="data-table">
+            <thead>
+                <tr>
+                    <th *ngFor="let column of parentColumList" [nzSortFn]="column.compare" [nzSortPriority]="column.priority">
+                        {{ column.title }}
+                      </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <ng-template ngFor let-data [ngForOf]="nestedTable.data">
+                    <tr>
+                        <td [(nzExpand)]="data.expand"></td>
+                        <td>
+                            <div class="editable-cell" [hidden]="editId === data.key" (click)="startEdit(data.key)">
+                                {{ data.club_name }}
+                            </div>
+                            <input [hidden]="editId !== data.key" type="text" nz-input [(ngModel)]="data.club_name"
+                                (blur)="stopEdit()" />
+                        </td>
+                        <td>
+                            <div class="editable-cell" [hidden]="editId === data.key" (click)="startEdit(data.key)">
+                                {{ data.club_address }}
+                            </div>
+                            <input [hidden]="editId !== data.key" type="text" nz-input [(ngModel)]="data.club_address"
+                                (blur)="stopEdit()" />
+                        </td>
+                        <td>
+                            <a nz-popconfirm nzPopconfirmTitle="Sure to delete?"
+                                (nzOnConfirm)="deleteParentRow(data.key)">Delete</a>
+                        </td>
+                    </tr>
+                    <tr [nzExpand]="data.expand">
+                        <nz-table #innerTable [nzData]="childrenTableData" nzSize="middle" [nzShowPagination]="false">
+                            <thead>
+                                <tr>
+                                    <th *ngFor="let column of childColumnList" [nzSortFn]="column.compare" [nzSortPriority]="column.priority">
+                                        {{ column.title }}
+                                      </th>
+                                </tr>
+                            </thead>
+
+            <tbody>
+                <tr *ngFor="let child of innerTable.data">
+                    <td *ngIf="data.key == child.key">
+                        <div class="editable-cell" [hidden]="editId === child.id" (click)="startEdit(child.id)">
+                            {{ child.name }}
+                        </div>
+                        <input [hidden]="editId !== child.id" type="text" nz-input [(ngModel)]="child.name"
+                            (blur)="stopEdit()" />
+                    </td>
+                    <td *ngIf="data.key == child.key">
+
+                        <div class="editable-cell" [hidden]="editId === child.id" (click)="startEdit(child.id)">
+                            {{ child.age }}
+                        </div>
+                        <input [hidden]="editId !== child.id" type="text" nz-input [(ngModel)]="child.age"
+                            (blur)="stopEdit()" />
+                    </td>
+                    <td *ngIf="data.key == child.key">
+                        <a nz-popconfirm nzPopconfirmTitle="Sure to delete?"
+                            (nzOnConfirm)="deleteChildRow(child.id)">Delete</a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </nz-table>
+        </tr>
+        </ng-template>
+        </tbody>
+        </nz-table>
+        <button (click)="submitData()">Update the modified data</button>
+    </div>
+
+</div>
